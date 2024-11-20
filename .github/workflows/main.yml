@@ -29,6 +29,9 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 
+    - name: Check git status
+      run: git status
+      
     - name: Push branch to test_repo_2
       env:
         NEW_BRANCH_NAME: "${{ github.event.inputs.target_branch }}-${{ env.hash }}"
