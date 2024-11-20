@@ -27,6 +27,7 @@ jobs:
         mkdir -p ~/.ssh
         echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
         chmod 600 ~/.ssh/deploy_key
+        ssh-keyscan -t rsa github.com
         ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
         export GIT_SSH_COMMAND="ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no"
 
