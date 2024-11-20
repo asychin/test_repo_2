@@ -36,4 +36,4 @@ jobs:
         git branch $NEW_BRANCH_NAME
 
         git remote add target git@github.com:asychin/test_repo_2.git
-        git push -u target $NEW_BRANCH_NAME
+        git push target $NEW_BRANCH_NAME
