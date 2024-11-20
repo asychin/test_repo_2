@@ -31,7 +31,7 @@ jobs:
 
     - name: Push branch to test_repo_2
       env:
-        NEW_BRANCH_NAME: "${{ github.event.inputs.target_branch }}#${{ env.hash }}"
+        NEW_BRANCH_NAME: "${{ github.event.inputs.target_branch }}-${{ env.hash }}"
       run: |
         git branch $NEW_BRANCH_NAME
 
