@@ -25,12 +25,9 @@ jobs:
     - name: Configure SSH for deployment
       run: |
         mkdir -p ~/.ssh
-        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
-        chmod 600 ~/.ssh/deploy_key
-        ssh-keyscan -t rsa github.com
+        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-        export GIT_SSH_COMMAND="ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no"
-        cat ~/.ssh/deploy_key
 
     - name: Debugging SSH connection
       run: |
@@ -41,9 +38,7 @@ jobs:
       env:
         NEW_BRANCH_NAME: "${{ github.event.inputs.target_branch }}#${{ env.hash }}"
       run: |
-        # Create new branch name
         git branch $NEW_BRANCH_NAME
 
-        # Push branch to target repository
         git remote add target git@github.com:asychin/test_repo_2.git
-        git push target $NEW_BRANCH_NAME
+        git push -u target $NEW_BRANCH_NAME
