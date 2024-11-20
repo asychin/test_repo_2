@@ -32,4 +32,6 @@ jobs:
         git checkout -b $NEW_BRANCH_NAME
 
         git remote add target git@github.com:asychin/test_repo_2.git
+        git add .
+        git commit --allow-empty -m "Crypto Gateway Release: ${{ github.ref_name }}"
         git push -u target $NEW_BRANCH_NAME
