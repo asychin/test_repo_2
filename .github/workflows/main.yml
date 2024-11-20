@@ -1,4 +1,4 @@
-name: Copy Branch to test_repo_2
+name: Copy Branch to Repo2
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
       target_branch:
         description: 'Branch to copy from (dev or stage)'
         required: true
-        default: 'dev'
+        default: 'main'
 
 jobs:
   copy-branch:
@@ -25,10 +25,15 @@ jobs:
     - name: Configure SSH for deployment
       run: |
         mkdir -p ~/.ssh
-        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/ed25519
-        chmod 600 ~/.ssh/ed25519
+        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
+        chmod 600 ~/.ssh/deploy_key
         ssh-keyscan -t ed25519 github.com >> ~/.ssh/known_hosts
-        export GIT_SSH_COMMAND="ssh -i ~/.ssh/ed25519"
+        export GIT_SSH_COMMAND="ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no"
+
+    - name: Debugging SSH connection
+      run: |
+        # Check if the SSH key is working correctly
+        ssh -T git@github.com
 
     - name: Push branch to test_repo_2
       env:
