@@ -31,12 +31,12 @@ jobs:
 
     - name: Check git status
       run: git status
-      
+
     - name: Push branch to test_repo_2
       env:
         NEW_BRANCH_NAME: "${{ github.event.inputs.target_branch }}-${{ env.hash }}"
       run: |
-        git branch $NEW_BRANCH_NAME
+        git checkout -b $NEW_BRANCH_NAME
 
         git remote add target git@github.com:asychin/test_repo_2.git
         git push target $NEW_BRANCH_NAME
