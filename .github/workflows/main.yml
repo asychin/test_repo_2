@@ -30,5 +30,6 @@ jobs:
         NEW_BRANCH_NAME: "${{ github.ref_name }}-${{ env.hash }}"
       run: |
         git checkout -b $NEW_BRANCH_NAME
+        git rm -r --cached .
         git remote add target git@github.com:asychin/test_repo_2.git
         git push -u target $NEW_BRANCH_NAME
