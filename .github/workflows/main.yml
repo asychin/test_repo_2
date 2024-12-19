@@ -13,7 +13,7 @@ jobs:
 
     - name: Get short commit hash
       id: get_commit_hash
-      run: echo ${{ github.sha::7 }}
+      run: echo ${{ github.sha }}
 
     - name: Configure SSH for deployment
       run: |
